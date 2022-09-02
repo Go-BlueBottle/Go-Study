@@ -45,7 +45,7 @@
 	});
 
 	function loadOn() {
-		fetch('127.0.0.1:3000/api/getPost?id='+params.id, {method: 'GET'})
+		fetch('127.0.0.1:8080/api/getPost?id='+params.id, {method: 'GET'})
 				.then(res => res.json())
 				.then(data => {
 					const content = document.querySelector('.col-md-10.col-lg-8.col-xl-7')
