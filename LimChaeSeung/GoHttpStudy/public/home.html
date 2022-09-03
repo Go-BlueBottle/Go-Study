@@ -46,22 +46,25 @@
 	</div>
 </div>
 <script>
-	document.querySelectorAll('tr').forEach(element => {
-		element.addEventListener('click', function (e) {
-			location.href = element.id;
-		});
-	});
 
 	function loadOn() {
-		fetch('127.0.0.1:8080/api/getPosts', {method: "GET"})
-				.then(res => res.json)
+		fetch('http://localhost:8080/api/getPosts', {method: "GET"})
+				.then(r => r.json())
 				.then(data => {
 					const tbody = document.getElementsByTagName('tbody')[0]
+					let tableString = ""
 					data.forEach((d, i) => {
-						let tableString = `<tr id="read_post.html?id=${d.web_board_id}"><td>${i + 1}</td><td>${d.web_board_title}</td><td>${d.date_time.substring(0, 10)}</td></tr>`
-						tbody.append(tableString);
+						tableString += `<tr id="read_post.html?id=${d.web_board_id}"><td>${i + 1}</td><td>${d.web_board_title}</td><td>${d.date_time.substring(0, 10)}</td></tr>`
 					})
+					tbody.innerHTML = tableString;
 				})
+				.then(() => {
+					document.querySelectorAll('tr').forEach(element => {
+						element.addEventListener('click', function (e) {
+							location.href = element.id;
+						});
+					});
+				});
 	}
 </script>
 <style>
